@@ -67,12 +67,12 @@ var server = app.listen(4351, function() {
 function readCredentials() {
 	read({prompt: 'Email Address: '}, function(err, email) {
 	  process.env.EMAIL_USER = email;
-	  console.log(err);
+	  
+		read({prompt: 'Password: ', silent: true}, function(err,password) {
+		  process.env.EMAIL_PASS = password;
+		  console.log(err);
+		});
 	});
 	
-	read({prompt: 'Password: ', silent: true}, function(err,password) {
-	  process.env.EMAIL_PASS = password;
-	  console.log(err);
-	});
 };
 
