@@ -9,15 +9,7 @@ console.log('process.env.MAIL_USER: ' + process.env.MAIL_USER);
 console.log('process.env.MAIL_PASS: ' + process.env.MAIL_PASS ? 'set' : 'undefined');
 
 
-var emailServer  = email.server.connect({
-	user: process.env.EMAIL_USER, 
-	password: process.env.EMAIL_PASS, 
-	host:"smtp.cox.net"
-	,port:465
-	,ssl:true
-	//,port:587
-	//,tls:true
-});
+
 
 app.get('/', function(request, response) {
  response.send("What");
@@ -33,6 +25,15 @@ app.get('/time', function(request, response) {
 
 app.get('/email',function(request, response) {
 	console.log('sending email');
+	var emailServer  = email.server.connect({
+		user: process.env.EMAIL_USER, 
+		password: process.env.EMAIL_PASS, 
+		host:"smtp.cox.net"
+		,port:465
+		,ssl:true
+		//,port:587
+		//,tls:true
+	});
  var message = {
 		text:    "can you hear me now?", 
 		from:    "benronan@cox.net", 
@@ -68,8 +69,9 @@ read({prompt: 'Email Address: '}, function(err, email) {
   console.log(err);
 });
 
-read({prompt: 'Password: ', silent: true}, function(err,) {
-  process.env.EMAIL_USER = email;console.log(err);
+read({prompt: 'Password: ', silent: true}, function(err,password) {
+  process.env.EMAIL_PASS = password;
+  console.log(err);
 });
 
 
