@@ -3,6 +3,11 @@ var path = require('path');
 var async = require('async');
 var email = require('emailjs');
 var app =  express();
+var read = require('read');
+
+read({prompt: 'Email Address: '}, function(err) {
+  console.log(err);
+});
 
 console.log('process.env.MAIL_USER: ' + process.env.MAIL_USER);
 console.log('process.env.MAIL_PASS: ' + process.env.MAIL_PASS ? 'set' : 'undefined');
