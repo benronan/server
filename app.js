@@ -5,17 +5,13 @@ var email = require('emailjs');
 var app =  express();
 var read = require('read');
 
-read({prompt: 'Email Address: '}, function(err) {
-  console.log(err);
-});
-
 console.log('process.env.MAIL_USER: ' + process.env.MAIL_USER);
 console.log('process.env.MAIL_PASS: ' + process.env.MAIL_PASS ? 'set' : 'undefined');
 
 
 var emailServer  = email.server.connect({
-	user: process.env.MAIL_USER, 
-	password: process.env.MAIL_PASS, 
+	user: process.env.EMAIL_USER, 
+	password: process.env.EMAIL_PASS, 
 	host:"smtp.cox.net"
 	,port:465
 	,ssl:true
@@ -64,6 +60,16 @@ var server = app.listen(4351, function() {
  var host = server.address().address;
  var port = server.address().port;
  console.log('Server listening at http://%s:%s', host, port);
+});
+
+
+read({prompt: 'Email Address: '}, function(err, email) {
+  process.env.EMAIL_USER = email;
+  console.log(err);
+});
+
+read({prompt: 'Password: ', silent: true}, function(err,) {
+  process.env.EMAIL_USER = email;console.log(err);
 });
 
 
