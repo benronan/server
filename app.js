@@ -11,7 +11,7 @@ console.log('process.env.MAIL_PASS: ' + process.env.MAIL_PASS ? 'set' : 'undefin
 var emailServer  = email.server.connect({
 	user: process.env.MAIL_USER, 
 	password: process.env.MAIL_PASS, 
-	host:"smtp.cox.com"
+	host:"smtp.cox.net"
 	,port:465
 	,ssl:true
 	//,port:587
@@ -32,7 +32,6 @@ app.get('/time', function(request, response) {
 
 app.get('/email',function(request, response) {
 	console.log('sending email');
-	send the message and get a callback with an error or details of the message that was sent
  var message = {
 		text:    "can you hear me now?", 
 		from:    "benronan@cox.net", 
