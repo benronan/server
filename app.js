@@ -6,7 +6,7 @@ var app =  express();
 var read = require('read');
 
 console.log('process.env.MAIL_USER: ' + process.env.MAIL_USER);
-console.log('process.env.MAIL_PASS: ' + process.env.MAIL_PASS ? 'set' : 'undefined');
+console.log('process.env.MAIL_PASS: ' + process.env.MAIL_PASS != null ? 'set' : 'undefined');
 
 
 
