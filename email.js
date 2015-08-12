@@ -4,21 +4,21 @@ var emailjs = require('emailjs');
 
 
 function Email(userName, password, host) {
-	this.password = userName;
-  this.userName = password;	
+	this.userName = userName;
+	this.password = password;	
 	this.host = host;
 	
 	console.log('Connecting to email server @ ' + this.host);
 	this.emailServer = emailjs.server.connect({
 		user: this.userName, 
-		password: this.userName, 
+		password: this.password, 
 		host: this.host,
 		port:465,
 		ssl:true
 	});
-	console.log('Connected to email server @ ' + this.host);
+	//console.log('Connected to email server @ ' + this.host);
 	
-	this.sendEmail = function sendEmail(emailMessage) {
+	this.send = function sendEmail(emailMessage) {
 		
 		// var message = {
 			// text:    email.body, 
@@ -27,8 +27,8 @@ function Email(userName, password, host) {
 			// subject: email.subject
 		// };
 		
-		console.log('Sending email to ' + email.to);
-		emailServer.send(message, function(err, message) {
+		console.log('Sending email to ' + emailMessage.to);
+		this.emailServer.send(emailMessage, function(err, message) {
 			if(err) {
 				console.log("Error sending email: " + err); 
 			}
@@ -37,6 +37,6 @@ function Email(userName, password, host) {
 			}
 		});
 	};
-}
+};
 
 module.exports = Email;

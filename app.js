@@ -1,6 +1,6 @@
 var express = require('express');
 var path = require('path');
-var email = require('./email');
+var Email = require('./email');
 var app =  express();
 var read = require('read');
 var ip = require('./ip');
@@ -50,10 +50,10 @@ function readCredentials() {
 				}
 				console.log('ip address is ' + ipAddress);
 				var email = new Email(process.env.EMAIL_USER,process.env.EMAIL_PASS,"smtp.cox.net");
-				email.send({
+email.send({
 					subject: "PI IP Address",
 					to: "benronan@cox.net",
-					from: "HOTPI@the.house",
+					from: "benronan@cox.net",
 					text: "My IP Address is " + ipAddress,
 				});
 				console.log('ip email sent');
