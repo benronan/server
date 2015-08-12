@@ -1,21 +1,21 @@
 var http = require('http');
 
-// http.get("http://jsonip.com/", function(res) {
-  // console.log("Got response: " + res.statusCode);
-	// res.on('data', function (chunk) {
-		// var json = JSON.parse(chunk)
-		// var ip = json["ip"];
-		// console.log('ip: ' + ip);
-  // });
-// }).on('error', function(e) {
-  // console.log("Got error: " + e.message);
-// });
+var server1 = "http://jsonip.com/";
+http.get(server1, function(res) {
+	 res.on('data', function (chunk) {
+		 var json = JSON.parse(chunk)
+		 var ip = json["ip"];
+		 console.log('ip: ' + ip);
+   });
+ }).on('error', function(e) {
+		console.log('Failed to contact server (' + server1 +'): ' + e.message);
+ });
 
-http.get("http://ip-api.com/json", function(res) {
-  console.log("Got response: " + res.statusCode);
+var server2 = "http://ip-api.com/json";
+http.get(server2, function(res) {
 	res.on('data', function (chunk) {
 		var json = JSON.parse(chunk)
-		console.log('ip: ' + json["ip"]);
+		console.log('ip: ' + json["query"]);
 		console.log('city: ' + json["city"]);
 		console.log('state: ' + json["regionName"]);
 		console.log('zipcode: ' + json["zip"]);
@@ -23,5 +23,5 @@ http.get("http://ip-api.com/json", function(res) {
 		console.log('coords: ' + json["lat"] + ' , ' + json["lon"]);
   });
 }).on('error', function(e) {
-  console.log("Got error: " + e.message);
+  console.log('Failed to contact server (' + server2 +'): ' + e.message);
 });
