@@ -1,13 +1,10 @@
-var net = require('net');
-function getNetworkIP(callback) {
-  var socket = net.createConnection(80, 'www.google.com');
-  socket.on('connect', function() {
-    callback(socket.address().address);
-    socket.end();
-  });
-  socket.on('error', function(e) {
-    callback(e, 'error');
-  });
-}
+var http = require('http');
 
-getNetworkIP(function(address){ console.log(address); });
+http.get("http://www.google.com/", function(res) {
+  console.log("Got response: " + res.statusCode);
+	foreach(var i in res) {
+	  console.log(i + ': " +  res[i]);
+	}
+}).on('error', function(e) {
+  console.log("Got error: " + e.message);
+});
