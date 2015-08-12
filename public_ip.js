@@ -1,10 +1,13 @@
 var http = require('http');
 
-http.get("http://www.google.com/", function(res) {
+http.get("http://jsonip.com/", function(res) {
   console.log("Got response: " + res.statusCode);
-	for(i in res.client) {
-	  console.log(i + ': ' +  res[i]);
-	}
+	res.on('data', function (chunk) {
+    console.log('BODY: ' + chunk);
+		var json = JSON.parse(chunk)
+		var ip = json["ip"];
+		console.log('ip: ' + ip);
+  });
 }).on('error', function(e) {
   console.log("Got error: " + e.message);
 });
