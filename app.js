@@ -1,15 +1,9 @@
 var express = require('express');
 var path = require('path');
-var async = require('async');
-var email = require('emailjs');
+var email = require('./email');
 var app =  express();
 var read = require('read');
-
-console.log('process.env.MAIL_USER: ' + process.env.MAIL_USER);
-console.log('process.env.MAIL_PASS: ' + process.env.MAIL_PASS != null ? 'set' : 'undefined');
-
-
-
+var ip = require('./ip');
 
 app.get('/', function(request, response) {
  response.send("What");
@@ -21,36 +15,6 @@ app.get("/ping", function(request, response) {
 
 app.get('/time', function(request, response) {
  response.send(new Date());
-});
-
-app.get('/email',function(request, response) {
-	console.log('sending email');
-	var emailServer  = email.server.connect({
-		user: process.env.EMAIL_USER, 
-		password: process.env.EMAIL_PASS, 
-		host:"smtp.cox.net"
-		,port:465
-		,ssl:true
-		//,port:587
-		//,tls:true
-	});
- var message = {
-		text:    "can you hear me now?", 
-		from:    "benronan@cox.net", 
-		to:      "freestylsurfr@cox.net",
-		subject: "testing emailjs"
- }
- emailServer.send(message, function(err, message) {
-	 if(err) {
-		 console.log(err); 
-	 }
-	 else {
-		 console.log('send success');
-	 }
-	 });
-
- console.log('email sending');
- response.send('email sent');
 });
 
 app.get('/*', function(request, response) {
@@ -66,13 +30,36 @@ var server = app.listen(4351, function() {
 
 function readCredentials() {
 	read({prompt: 'Email Address: '}, function(err, email) {
-	  process.env.EMAIL_USER = email;
-	  
+		process.env.EMAIL_USER = email;
+		if(err) {
+			console.log("");
+			console.log("Error reading email user: "  + err);
+			return;
+		}
 		read({prompt: 'Password: ', silent: true}, function(err,password) {
 		  process.env.EMAIL_PASS = password;
-		  console.log(err);
+			if(err) {
+				console.log("");
+				console.log("Error reading email password: "  + err);
+				return;
+			}
+			console.log('getting ip address');
+			ip.getPublicIP(function(err,ipAddress) {
+				if(err) {
+				  console.log(err);return;
+				}
+				console.log('ip address is ' + ipAddress);
+				var email = new Email(process.env.EMAIL_USER,process.env.EMAIL_PASS,"smtp.cox.net");
+				email.send({
+					subject: "PI IP Address",
+					to: "benronan@cox.net",
+					from: "HOTPI@the.house",
+					text: "My IP Address is " + ipAddress,
+				});
+				console.log('ip email sent');
+			});
 		});
-	});
-	
+	});	
 };
+
 
