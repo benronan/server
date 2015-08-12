@@ -1,40 +1,39 @@
 Got response: 200
+_connecting: undefined
+_hadError: undefined
+_handle: undefined
+_host: undefined
 _readableState: [object Object]
 readable: true
 domain: null
 _events: [object Object]
 _maxListeners: undefined
-socket: [object Object]
-connection: [object Object]
-httpVersionMajor: 1
-httpVersionMinor: 1
-httpVersion: 1.1
-complete: false
-headers: [object Object]
-rawHeaders: Date,Wed, 12 Aug 2015 16:38:43 GMT,Expires,-1,Cache-Control,private, max-age=0,Content-Type,text/html; charset=ISO-8859-1,P3P,CP="This is not a P3P policy! See http://www.google.com/support/accounts/bin/answer.py?hl=en&answer=151657 for more info.",Server,gws,X-XSS-Protection,1; mode=block,X-Frame-Options,SAMEORIGIN,Set-Cookie,PREF=ID=1111111111111111:FF=0:TM=1439397523:LM=1439397523:V=1:S=GH1XGp_bEyDiMYj6; expires=Fri, 11-Aug-2017 16:38:43 GMT; path=/; domain=.google.com,Set-Cookie,NID=70=R29AJR86QqGf7m7RWwUcZTrjNBlY0YEpKxb9Kl2hjKXwtOb4cHgZGIe7JFJWzlM2BY1u0Eay0hzrbaIrXE3rwUNVTi40fiRBBRQwnn3t5YhzDRoV0AfiNr5hQHGFl7nL; expires=Thu, 11-Feb-2016 16:38:43 GMT; path=/; domain=.google.com; HttpOnly,Accept-Ranges,none,Vary,Accept-Encoding,Connection,close
-trailers: [object Object]
-rawTrailers: 
-_pendings: 
-_pendingIndex: 0
-upgrade: false
-url: 
-method: null
-statusCode: 200
-statusMessage: OK
-client: [object Object]
-_consuming: false
-_dumped: false
-req: [object Object]
-setTimeout: function (msecs, callback) {
-  if (callback)
-    this.on('timeout', callback);
-  this.socket.setTimeout(msecs);
-}
+_writableState: undefined
+writable: undefined
+allowHalfOpen: undefined
+destroyed: undefined
+bytesRead: undefined
+_bytesDispatched: undefined
+_pendingData: undefined
+_pendingEncoding: undefined
+parser: undefined
+_httpMessage: undefined
 read: function (n) {
   this._consuming = true;
   this.read = Stream.Readable.prototype.read;
   return this.read(n);
 }
+_consuming: false
+listen: undefined
+setTimeout: function (msecs, callback) {
+  if (callback)
+    this.on('timeout', callback);
+  this.socket.setTimeout(msecs);
+}
+_onTimeout: undefined
+setNoDelay: undefined
+setKeepAlive: undefined
+address: undefined
 _read: function (n) {
   // We actually do almost nothing here, because the parserOnBody
   // function fills up our internal buffer directly.  However, we
@@ -42,76 +41,31 @@ _read: function (n) {
   if (this.socket.readable)
     readStart(this.socket);
 }
+end: undefined
+destroySoon: undefined
+_destroy: undefined
 destroy: function (error) {
   if (this.socket)
     this.socket.destroy(error);
 }
-_addHeaderLines: function (headers, n) {
-  if (headers && headers.length) {
-    var raw, dest;
-    if (this.complete) {
-      raw = this.rawTrailers;
-      dest = this.trailers;
-    } else {
-      raw = this.rawHeaders;
-      dest = this.headers;
-    }
-
-    for (var i = 0; i < n; i += 2) {
-      var k = headers[i];
-      var v = headers[i + 1];
-      raw.push(k);
-      raw.push(v);
-      this._addHeaderLine(k, v, dest);
-    }
-  }
-}
-_addHeaderLine: function (field, value, dest) {
-  field = field.toLowerCase();
-  switch (field) {
-    // Array headers:
-    case 'set-cookie':
-      if (!util.isUndefined(dest[field])) {
-        dest[field].push(value);
-      } else {
-        dest[field] = [value];
-      }
-      break;
-
-    // list is taken from:
-    // https://mxr.mozilla.org/mozilla/source/netwerk/protocol/http/src/nsHttpHeaderArray.cpp
-    case 'content-type':
-    case 'content-length':
-    case 'user-agent':
-    case 'referer':
-    case 'host':
-    case 'authorization':
-    case 'proxy-authorization':
-    case 'if-modified-since':
-    case 'if-unmodified-since':
-    case 'from':
-    case 'location':
-    case 'max-forwards':
-      // drop duplicates
-      if (util.isUndefined(dest[field]))
-        dest[field] = value;
-      break;
-
-    default:
-      // make comma-separated list
-      if (!util.isUndefined(dest[field]))
-        dest[field] += ', ' + value;
-      else {
-        dest[field] = value;
-      }
-  }
-}
-_dump: function () {
-  if (!this._dumped) {
-    this._dumped = true;
-    this.resume();
-  }
-}
+_getpeername: undefined
+remoteAddress: undefined
+remoteFamily: undefined
+remotePort: undefined
+_getsockname: undefined
+localAddress: undefined
+localPort: undefined
+write: undefined
+_writeGeneric: undefined
+_writev: undefined
+_write: undefined
+bytesWritten: undefined
+connect: undefined
+ref: undefined
+unref: undefined
+cork: undefined
+uncork: undefined
+setDefaultEncoding: undefined
 push: function (chunk, encoding) {
   var state = this._readableState;
 
