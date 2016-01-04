@@ -17,6 +17,11 @@ app.get('/time', function(request, response) {
  response.send(new Date());
 });
 
+app.get('/state', function(req,res) {
+  console.log("received request for state from: " ,req.ip );
+  res.json({state: 'open'});
+});
+
 app.get('/*', function(request, response) {
  response.redirect('/');
 });

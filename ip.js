@@ -3,6 +3,7 @@
 var http = require('http');
 var os = require('os');
 
+//get public facing ip
 exports.getIP = function(callback) {
 	var ifaces = os.networkInterfaces();
 	Object.keys(ifaces).forEach(function (ifname) {
@@ -42,7 +43,7 @@ exports.getPublicIP = function(callback) {
 		  callback(error);
 		});
 };
-
+//GeoIp
 exports.getGeoIP = function(callback) {
 	var server = "http://ip-api.com/json";
 	http.get(server, function(res) {
